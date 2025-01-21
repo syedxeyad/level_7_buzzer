@@ -4297,6 +4297,328 @@ class WaterLevelScreen extends StatefulWidget {
   _WaterLevelScreenState createState() => _WaterLevelScreenState();
 }
 
+//previous
+
+// class _WaterLevelScreenState extends State<WaterLevelScreen> {
+//   final double ledSize = 30.0;
+//   final double spacing = 20.0;
+//   final double rowSpacing = 15.0;
+//   List<bool> switchStates1 = List.generate(7, (index) => false); // "On Notify"
+//   List<bool> switchStates2 = List.generate(7, (index) => false); // "Off Notify"
+//
+//   int currentLevel = 0;
+//   Timer? timer;
+//   bool isIncreasing = true;
+//   int targetLevel = 0;
+//
+//   final AudioPlayerManager _audioPlayerManager = AudioPlayerManager();
+//   String? _selectedBeepSound = 'notification_1.mp3'; // Default beep sound
+//   List<bool> soundPlayed = List.generate(7, (index) => false); // To track sound play status
+//   bool levelChangedDown = false; // To track if the level has decreased
+//   List<bool> hasSoundPlayedBefore = List.generate(7, (index) => false); // New flag to check if sound has played before
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     startAnimation(currentLevel);
+//   }
+//
+//   void startAnimation(int newTargetLevel) {
+//     if (newTargetLevel == currentLevel) return;
+//
+//     isIncreasing = newTargetLevel > currentLevel;
+//     timer?.cancel();
+//     timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+//       setState(() {
+//         if (isIncreasing) {
+//           if (currentLevel < newTargetLevel) {
+//             currentLevel++;
+//             levelChangedDown = false; // Reset when level increases
+//           } else {
+//             timer.cancel();
+//           }
+//         } else {
+//           if (currentLevel > newTargetLevel) {
+//             currentLevel--;
+//             levelChangedDown = true; // Set when level decreases
+//           } else {
+//             timer.cancel();
+//           }
+//         }
+//
+//         // Reset soundPlayed for all levels below the current level
+//         for (int i = currentLevel; i < 7; i++) {
+//           soundPlayed[i] = false;
+//         }
+//       });
+//     });
+//   }
+//
+//   Color getLEDColor(int index) {
+//     if (index >= 6) {
+//       return Colors.blue;
+//     } else if (index >= 3) {
+//       return Colors.green;
+//     } else {
+//       return Colors.red;
+//     }
+//   }
+//
+//   Widget buildRow(int rowIndex) {
+//     if (rowIndex < 7) {
+//       int reversedIndex = 6 - rowIndex; // Reverse index for correct order
+//       return Padding(
+//         padding: EdgeInsets.symmetric(vertical: rowSpacing / 2),
+//         child: IntrinsicHeight(
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//               WaterLevelIndicator(
+//                 index: reversedIndex,
+//                 currentLevel: currentLevel,
+//                 onLEDGlow: (bool isOn) {
+//                   // If the LED for a level glows, check if the "On Notify" switch is on
+//                   if (switchStates1[reversedIndex] && isOn && !soundPlayed[reversedIndex] && !hasSoundPlayedBefore[reversedIndex] && !levelChangedDown) {
+//                     // Play the beep sound when the corresponding LED glows and "On Notify" switch is on
+//                     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                     soundPlayed[reversedIndex] = true; // Mark sound as played
+//                     hasSoundPlayedBefore[reversedIndex] = true; // Mark that the sound has been played before
+//                   }
+//                 },
+//               ),
+//               SizedBox(width: 20), // Spacing between LED and switches
+//               // SwitchWidget(
+//               //   switchState1: switchStates1[reversedIndex],
+//               //   switchState2: switchStates2[reversedIndex],
+//               //   onSwitch1Changed: (value) {
+//               //     setState(() {
+//               //       switchStates1[reversedIndex] = value;
+//               //
+//               //       // Ensure sound does not play more than once when switchState1 changes
+//               //       if (switchStates1[reversedIndex] && !hasSoundPlayedBefore[reversedIndex]) {
+//               //         // Sound will play only when the LED reaches the specific level
+//               //         if (currentLevel >= reversedIndex) {
+//               //           _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//               //           soundPlayed[reversedIndex] = true;
+//               //           hasSoundPlayedBefore[reversedIndex] = true;
+//               //         }
+//               //       }
+//               //     });
+//               //   },
+//               //   onSwitch2Changed: (value) {
+//               //     setState(() {
+//               //       switchStates2[reversedIndex] = value;
+//               //     });
+//               //   },
+//               // ),
+//               SwitchWidget(
+//                 switchState1: switchStates1[reversedIndex],
+//                 switchState2: switchStates2[reversedIndex],
+//                 // onSwitch1Changed: (value) {
+//                 //   setState(() {
+//                 //     switchStates1[reversedIndex] = value;
+//                 //
+//                 //     // Check if "On Notify" switch is ON and currentLevel is greater than or equal to the corresponding level
+//                 //     if (switchStates1[reversedIndex] && !hasSoundPlayedBefore[reversedIndex]) {
+//                 //       // Check that the level has reached the required level before playing sound
+//                 //       if (currentLevel >= (reversedIndex * 15)) {
+//                 //         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                 //         soundPlayed[reversedIndex] = true;
+//                 //         hasSoundPlayedBefore[reversedIndex] = true;
+//                 //       }
+//                 //     }
+//                 //   });
+//                 // },
+//                 //only once
+//                 // onSwitch1Changed: (value) {
+//                 //   setState(() {
+//                 //     switchStates1[reversedIndex] = value;
+//                 //
+//                 //     // Check "On Notify" condition only when water level is high enough
+//                 //     if (switchStates1[reversedIndex] && currentLevel == (reversedIndex + 1)) {
+//                 //       // Play sound if not already played
+//                 //       if (!hasSoundPlayedBefore[reversedIndex]) {
+//                 //         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                 //         soundPlayed[reversedIndex] = true;
+//                 //         hasSoundPlayedBefore[reversedIndex] = true;
+//                 //       }
+//                 //     }
+//                 //   });
+//                 // },
+//                 onSwitch1Changed: (value) {
+//                   setState(() {
+//                     switchStates1[reversedIndex] = value;
+//
+//                     // Check toggle switch and water level condition
+//                     if (switchStates1[reversedIndex]) {
+//                       if (currentLevel == (reversedIndex + 1) && !soundPlayed[reversedIndex]) {
+//                         // Play sound if current level matches and toggle is ON
+//                         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                         soundPlayed[reversedIndex] = true; // Mark sound as played
+//                       }
+//                       else if (currentLevel != (reversedIndex + 1)) {
+//                         // Reset sound flag if level changes
+//                         soundPlayed[reversedIndex] = false;
+//                       }
+//                     }
+//                   });
+//                 },
+//
+//
+//                 onSwitch2Changed: (value) {
+//                   setState(() {
+//                     switchStates2[reversedIndex] = value;
+//                   });
+//                 },
+//               )
+//
+//             ],
+//           ),
+//         ),
+//       );
+//     }
+//
+//     return Container(); // Return an empty container when rowIndex is 7 or higher
+//   }
+//   // Widget buildRow(int rowIndex) {
+//   //   if (rowIndex < 6) { // Only 6 levels (1-6), excluding 0
+//   //     int levelIndex = rowIndex + 1; // Start at 1 for 15%, 2 for 30%, etc.
+//   //
+//   //     return Padding(
+//   //       padding: EdgeInsets.symmetric(vertical: rowSpacing / 2),
+//   //       child: IntrinsicHeight(
+//   //         child: Row(
+//   //           mainAxisAlignment: MainAxisAlignment.center,
+//   //           crossAxisAlignment: CrossAxisAlignment.center,
+//   //           children: [
+//   //             WaterLevelIndicator(
+//   //               index: levelIndex, // Adjust index to skip 0 and start from 1
+//   //               currentLevel: currentLevel,
+//   //               onLEDGlow: (bool isOn) {
+//   //                 if (switchStates1[levelIndex - 1] && isOn && !soundPlayed[levelIndex - 1] && !hasSoundPlayedBefore[levelIndex - 1] && !levelChangedDown) {
+//   //                   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//   //                   soundPlayed[levelIndex - 1] = true;
+//   //                   hasSoundPlayedBefore[levelIndex - 1] = true;
+//   //                 }
+//   //               },
+//   //             ),
+//   //             SizedBox(width: 20), // Spacing between LED and switches
+//   //             SwitchWidget(
+//   //               switchState1: switchStates1[levelIndex - 1],
+//   //               switchState2: switchStates2[levelIndex - 1],
+//   //               onSwitch1Changed: (value) {
+//   //                 setState(() {
+//   //                   switchStates1[levelIndex - 1] = value;
+//   //                   if (switchStates1[levelIndex - 1] && !hasSoundPlayedBefore[levelIndex - 1]) {
+//   //                     if (currentLevel >= levelIndex) {
+//   //                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//   //                       soundPlayed[levelIndex - 1] = true;
+//   //                       hasSoundPlayedBefore[levelIndex - 1] = true;
+//   //                     }
+//   //                   }
+//   //                 });
+//   //               },
+//   //               onSwitch2Changed: (value) {
+//   //                 setState(() {
+//   //                   switchStates2[levelIndex - 1] = value;
+//   //                 });
+//   //               },
+//   //             ),
+//   //           ],
+//   //         ),
+//   //       ),
+//   //     );
+//   //   }
+//   //   return Container(); // Return an empty container for level 0
+//   // }
+//
+//   @override
+//   void dispose() {
+//     timer?.cancel();
+//     _audioPlayerManager.dispose();
+//     super.dispose();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Water Level Monitor'),
+//       ),
+//       body: Column(
+//         children: [
+//           Expanded(
+//             child: Center(
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Column(
+//                     children: List.generate(8, (index) {
+//                       if (index < 7) {
+//                         return buildRow(index);
+//                       } else {
+//                         return Padding(
+//                           padding: EdgeInsets.symmetric(vertical: rowSpacing / 2),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.end,
+//                             children: [
+//                               Expanded(
+//                                 child: Column(
+//                                   mainAxisAlignment: MainAxisAlignment.center,
+//                                   crossAxisAlignment: CrossAxisAlignment.end,
+//                                   children: [
+//                                     Text('Water Level'),
+//                                   ],
+//                                 ),
+//                               ),
+//                               Expanded(
+//                                 child: Column(
+//                                   mainAxisAlignment: MainAxisAlignment.center,
+//                                   crossAxisAlignment: CrossAxisAlignment.center,
+//                                   children: [
+//                                     Text('        On Notify'),
+//                                   ],
+//                                 ),
+//                               ),
+//                               Expanded(
+//                                 child: Column(
+//                                   mainAxisAlignment: MainAxisAlignment.start,
+//                                   crossAxisAlignment: CrossAxisAlignment.stretch,
+//                                   children: [
+//                                     Text('   Off Notify'),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         );
+//                       }
+//                     }),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: WaterLevelDropdown(
+//               targetLevel: targetLevel,
+//               onLevelChanged: (newLevel) {
+//                 setState(() {
+//                   targetLevel = newLevel ?? 0;
+//                   startAnimation(targetLevel);
+//                   levelChangedDown = false; // Reset the levelChangedDown flag on level change
+//                 });
+//               },
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 class _WaterLevelScreenState extends State<WaterLevelScreen> {
   final double ledSize = 30.0;
   final double spacing = 20.0;
@@ -4314,6 +4636,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
   List<bool> soundPlayed = List.generate(7, (index) => false); // To track sound play status
   bool levelChangedDown = false; // To track if the level has decreased
   List<bool> hasSoundPlayedBefore = List.generate(7, (index) => false); // New flag to check if sound has played before
+  bool wasLevelIncreased = false; // Flag to check if level has increased
 
   @override
   void initState() {
@@ -4332,6 +4655,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
           if (currentLevel < newTargetLevel) {
             currentLevel++;
             levelChangedDown = false; // Reset when level increases
+            wasLevelIncreased = true; // Track that level has increased
           } else {
             timer.cancel();
           }
@@ -4339,6 +4663,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
           if (currentLevel > newTargetLevel) {
             currentLevel--;
             levelChangedDown = true; // Set when level decreases
+            wasLevelIncreased = false; // Track that level has decreased
           } else {
             timer.cancel();
           }
@@ -4383,67 +4708,19 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                     soundPlayed[reversedIndex] = true; // Mark sound as played
                     hasSoundPlayedBefore[reversedIndex] = true; // Mark that the sound has been played before
                   }
+
+                  // If the level is increased, check to play sound even after level change
+                  if (wasLevelIncreased && switchStates1[reversedIndex] && isOn && !soundPlayed[reversedIndex]) {
+                    _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                    soundPlayed[reversedIndex] = true; // Mark sound as played
+                    hasSoundPlayedBefore[reversedIndex] = true; // Mark that the sound has been played before
+                  }
                 },
               ),
-              SizedBox(width: 20), // Spacing between LED and switches
-              // SwitchWidget(
-              //   switchState1: switchStates1[reversedIndex],
-              //   switchState2: switchStates2[reversedIndex],
-              //   onSwitch1Changed: (value) {
-              //     setState(() {
-              //       switchStates1[reversedIndex] = value;
-              //
-              //       // Ensure sound does not play more than once when switchState1 changes
-              //       if (switchStates1[reversedIndex] && !hasSoundPlayedBefore[reversedIndex]) {
-              //         // Sound will play only when the LED reaches the specific level
-              //         if (currentLevel >= reversedIndex) {
-              //           _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-              //           soundPlayed[reversedIndex] = true;
-              //           hasSoundPlayedBefore[reversedIndex] = true;
-              //         }
-              //       }
-              //     });
-              //   },
-              //   onSwitch2Changed: (value) {
-              //     setState(() {
-              //       switchStates2[reversedIndex] = value;
-              //     });
-              //   },
-              // ),
+              SizedBox(width: 20),
               SwitchWidget(
                 switchState1: switchStates1[reversedIndex],
                 switchState2: switchStates2[reversedIndex],
-                // onSwitch1Changed: (value) {
-                //   setState(() {
-                //     switchStates1[reversedIndex] = value;
-                //
-                //     // Check if "On Notify" switch is ON and currentLevel is greater than or equal to the corresponding level
-                //     if (switchStates1[reversedIndex] && !hasSoundPlayedBefore[reversedIndex]) {
-                //       // Check that the level has reached the required level before playing sound
-                //       if (currentLevel >= (reversedIndex * 15)) {
-                //         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                //         soundPlayed[reversedIndex] = true;
-                //         hasSoundPlayedBefore[reversedIndex] = true;
-                //       }
-                //     }
-                //   });
-                // },
-                //only once
-                // onSwitch1Changed: (value) {
-                //   setState(() {
-                //     switchStates1[reversedIndex] = value;
-                //
-                //     // Check "On Notify" condition only when water level is high enough
-                //     if (switchStates1[reversedIndex] && currentLevel == (reversedIndex + 1)) {
-                //       // Play sound if not already played
-                //       if (!hasSoundPlayedBefore[reversedIndex]) {
-                //         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                //         soundPlayed[reversedIndex] = true;
-                //         hasSoundPlayedBefore[reversedIndex] = true;
-                //       }
-                //     }
-                //   });
-                // },
                 onSwitch1Changed: (value) {
                   setState(() {
                     switchStates1[reversedIndex] = value;
@@ -4462,15 +4739,12 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                     }
                   });
                 },
-
-
                 onSwitch2Changed: (value) {
                   setState(() {
                     switchStates2[reversedIndex] = value;
                   });
                 },
-              )
-
+              ),
             ],
           ),
         ),
@@ -4479,57 +4753,6 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
 
     return Container(); // Return an empty container when rowIndex is 7 or higher
   }
-  // Widget buildRow(int rowIndex) {
-  //   if (rowIndex < 6) { // Only 6 levels (1-6), excluding 0
-  //     int levelIndex = rowIndex + 1; // Start at 1 for 15%, 2 for 30%, etc.
-  //
-  //     return Padding(
-  //       padding: EdgeInsets.symmetric(vertical: rowSpacing / 2),
-  //       child: IntrinsicHeight(
-  //         child: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             WaterLevelIndicator(
-  //               index: levelIndex, // Adjust index to skip 0 and start from 1
-  //               currentLevel: currentLevel,
-  //               onLEDGlow: (bool isOn) {
-  //                 if (switchStates1[levelIndex - 1] && isOn && !soundPlayed[levelIndex - 1] && !hasSoundPlayedBefore[levelIndex - 1] && !levelChangedDown) {
-  //                   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-  //                   soundPlayed[levelIndex - 1] = true;
-  //                   hasSoundPlayedBefore[levelIndex - 1] = true;
-  //                 }
-  //               },
-  //             ),
-  //             SizedBox(width: 20), // Spacing between LED and switches
-  //             SwitchWidget(
-  //               switchState1: switchStates1[levelIndex - 1],
-  //               switchState2: switchStates2[levelIndex - 1],
-  //               onSwitch1Changed: (value) {
-  //                 setState(() {
-  //                   switchStates1[levelIndex - 1] = value;
-  //                   if (switchStates1[levelIndex - 1] && !hasSoundPlayedBefore[levelIndex - 1]) {
-  //                     if (currentLevel >= levelIndex) {
-  //                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-  //                       soundPlayed[levelIndex - 1] = true;
-  //                       hasSoundPlayedBefore[levelIndex - 1] = true;
-  //                     }
-  //                   }
-  //                 });
-  //               },
-  //               onSwitch2Changed: (value) {
-  //                 setState(() {
-  //                   switchStates2[levelIndex - 1] = value;
-  //                 });
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   }
-  //   return Container(); // Return an empty container for level 0
-  // }
 
   @override
   void dispose() {
@@ -4607,6 +4830,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                   targetLevel = newLevel ?? 0;
                   startAnimation(targetLevel);
                   levelChangedDown = false; // Reset the levelChangedDown flag on level change
+                  wasLevelIncreased = false; // Reset when level is manually changed
                 });
               },
             ),
