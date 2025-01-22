@@ -4625,6 +4625,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
   final double rowSpacing = 15.0;
   List<bool> switchStates1 = List.generate(7, (index) => false); // "On Notify"
   List<bool> switchStates2 = List.generate(7, (index) => false); // "Off Notify"
+  int previousLevel = 0; // Yeh variable aapke level ko track karega
 
   int currentLevel = 0;
   Timer? timer;
@@ -4649,7 +4650,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
 
     isIncreasing = newTargetLevel > currentLevel;
     timer?.cancel();
-    timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    timer = Timer.periodic(Duration(seconds: 4), (Timer timer) {
       setState(() {
         if (isIncreasing) {
           if (currentLevel < newTargetLevel) {
@@ -4719,7 +4720,9 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
               ),
               SizedBox(width: 20),
               SwitchWidget(
-                switchState1: switchStates1[reversedIndex],
+//                  int previousLevel = 0; // Declare previousLevel at the top of the class to track previous level
+
+                  switchState1: switchStates1[reversedIndex],
                 switchState2: switchStates2[reversedIndex],
                 onSwitch1Changed: (value) {
                   setState(() {
@@ -4739,11 +4742,90 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                     }
                   });
                 },
-                onSwitch2Changed: (value) {
-                  setState(() {
-                    switchStates2[reversedIndex] = value;
-                  });
-                },
+                // onSwitch2Changed: (value) {
+                //   setState(() {
+                //     switchStates2[reversedIndex] = value;
+                //   });
+                // },
+                //   onSwitch2Changed: (value) {
+                //     setState(() {
+                //       switchStates2[reversedIndex] = value;
+                //
+                //       // Only trigger sound if "Off Notify" switch is ON and the level has gone above the target before
+                //       if (switchStates2[reversedIndex]) {
+                //         if (currentLevel < (reversedIndex + 1) && !soundPlayed[reversedIndex] && currentLevel >= (reversedIndex + 1)) {
+                //           // Play sound only if the level has fallen below the target level and the switch is ON
+                //           _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                //           soundPlayed[reversedIndex] = true; // Mark sound as played
+                //         }
+                //       } else {
+                //         // Reset sound flag when the switch is turned off
+                //         soundPlayed[reversedIndex] = false;
+                //       }
+                //     });
+                //   }
+                //   onSwitch2Changed: (value) {
+                //     setState(() {
+                //       switchStates2[reversedIndex] = value;
+                //
+                //       // Reset sound when switch is turned OFF
+                //       if (!switchStates2[reversedIndex]) {
+                //         soundPlayed[reversedIndex] = false;
+                //       }
+                //
+                //       // Check for level 7 (reversedIndex == 6) - when level 7's switch is toggled ON
+                //       if (reversedIndex == 6) {
+                //         // If switch for level 7 is ON and we are at level 7, play the sound when transitioning to level 6
+                //         if (switchStates2[reversedIndex] && !soundPlayed[reversedIndex]) {
+                //           if (currentLevel == 7) {
+                //             // Transitioning to level 6, play the sound
+                //             _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                //             soundPlayed[reversedIndex] = true; // Mark sound as played
+                //           }
+                //         }
+                //       }
+                //
+                //       // Reset sound flag if the current level doesn't match
+                //       if (currentLevel != reversedIndex + 1) {
+                //         soundPlayed[reversedIndex] = false;
+                //       }
+                //     });
+                //   }
+
+
+                  // int previousLevel = 0; // Track previous level
+// Initialize previousLevel to 0 at the start
+//                  int previousLevel = 0;  // Assuming level starts from 0
+
+                  onSwitch2Changed: (value) {
+        setState(() {
+        switchStates2[reversedIndex] = value;
+
+        // Reset sound when switch is turned OFF
+        if (!switchStates2[reversedIndex]) {
+        soundPlayed[reversedIndex] = false;
+        }
+
+        // Check if the switch is ON and we're transitioning from a higher level to a lower level
+        if (switchStates2[reversedIndex] && !soundPlayed[reversedIndex]) {
+        // Check if we are transitioning from a higher level to a lower level
+        if (previousLevel > currentLevel) {
+        // Play sound when switching from a higher level to a lower level
+        _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+        soundPlayed[reversedIndex] = true; // Mark sound as played
+        }
+        }
+
+        // Reset sound flag if the level doesn't match
+        if (currentLevel != reversedIndex + 1) {
+        soundPlayed[reversedIndex] = false;
+        }
+
+        // Update previousLevel to track the previous state
+        previousLevel = currentLevel;
+        });
+        }
+
               ),
             ],
           ),
