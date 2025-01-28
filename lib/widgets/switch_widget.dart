@@ -515,3 +515,95 @@ class SwitchWidget extends StatelessWidget {
     );
   }
 }
+
+// // 1) switch_widget.dart >>>>
+//
+// import 'package:flutter/material.dart'; // Flutter ka material design package import kiya gaya hai.
+//
+// class SwitchWidget extends StatelessWidget { // 'SwitchWidget' naam ka ek stateless widget define kiya gaya hai.
+//   final bool switchState1; // Pehla switch ka state (ON/OFF) store karne ke liye ek variable.
+//   final bool switchState2; // Doosra switch ka state (ON/OFF) store karne ke liye ek variable.
+//   final ValueChanged<bool> onSwitch1Changed; // Pehle switch ke state ke change hone par jo function call hoga.
+//   final ValueChanged<bool> onSwitch2Changed; // Doosre switch ke state ke change hone par jo function call hoga.
+//
+//   SwitchWidget({
+//     required this.switchState1, // Constructor mein pehla switch state pass kiya gaya hai.
+//     required this.switchState2, // Constructor mein doosra switch state pass kiya gaya hai.
+//     required this.onSwitch1Changed, // Pehle switch ke liye onSwitch1Changed function pass kiya gaya hai.
+//     required this.onSwitch2Changed, // Doosre switch ke liye onSwitch2Changed function pass kiya gaya hai.
+//   });
+//
+//   @override
+//   Widget build(BuildContext context) { // 'build' method jo widget ki UI ko render karta hai.
+//     return Column( // Column widget, jo child widgets ko vertical direction mein arrange karta hai.
+//       children: [
+//         Row( // Row widget, jo child widgets ko horizontal direction mein arrange karta hai.
+//           mainAxisAlignment: MainAxisAlignment.center, // Child widgets ko center mein align karta hai.
+//           children: [
+//             Switch( // Pehla switch widget, jo user ke click pe state change karta hai.
+//               value: switchState1, // Pehle switch ka current state (ON/OFF) value ko pass karta hai.
+//               onChanged: onSwitch1Changed, // Jab switch ka state change hoga, toh onSwitch1Changed function call hoga.
+//               activeColor: Colors.green, // Jab switch ON ho, toh uska color green hoga.
+//               inactiveThumbColor: Colors.red, // Jab switch OFF ho, toh uska color red hoga.
+//             ),
+//             SizedBox(width: 22), // Switch ke beech mein 22 pixels ka gap dalta hai.
+//             Switch( // Doosra switch widget.
+//               value: switchState2, // Doosre switch ka current state (ON/OFF) value ko pass karta hai.
+//               onChanged: onSwitch2Changed, // Jab doosra switch ka state change hoga, toh onSwitch2Changed function call hoga.
+//               activeColor: Colors.green, // Jab switch ON ho, toh uska color green hoga.
+//               inactiveThumbColor: Colors.red, // Jab switch OFF ho, toh uska color red hoga.
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+// }
+//
+// // 2) abc >>>> Usage of SwitchWidget
+//
+// SwitchWidget( // SwitchWidget ko use kiya gaya hai.
+// switchState1: switchStates1[reversedIndex], // Pehla switch state 'switchStates1' list se reversedIndex ke basis par liya gaya hai.
+// switchState2: switchStates2[reversedIndex], // Doosra switch state 'switchStates2' list se reversedIndex ke basis par liya gaya hai.
+// onSwitch1Changed: (value) { // Jab pehla switch ka state change ho, toh is function ko call kiya jata hai.
+// setState(() { // 'setState' method ke zariye UI ko update karte hain.
+// switchStates1[reversedIndex] = value; // Pehle switch ka state 'switchStates1' list mein updated kiya gaya hai.
+//
+// // "On Notify" logic for switch 1
+// if (switchStates1[reversedIndex]) { // Agar switch 1 ON ho (true state)
+// if (currentLevel == (reversedIndex + 1) && !soundPlayed[reversedIndex]) { // Agar current water level match kare aur sound nahi chalaya gaya ho
+// _audioPlayerManager.playBeepSound(_selectedBeepSound!); // Sound play kiya jata hai.
+// soundPlayed[reversedIndex] = true; // Sound ko play hone ka flag true kiya gaya.
+// } else if (currentLevel != (reversedIndex + 1)) { // Agar level match nahi karta
+// soundPlayed[reversedIndex] = false; // Sound flag ko reset kar diya gaya hai.
+// }
+// }
+//
+// // "Off Notify" logic for switch 1
+// if (!switchStates1[reversedIndex] && hasSoundPlayedBefore[reversedIndex]) { // Agar switch 1 OFF ho aur pehle sound play ho chuka ho
+// soundPlayed[reversedIndex] = false; // Sound flag ko reset kar diya gaya hai.
+// }
+// });
+// },
+//
+// onSwitch2Changed: (value) { // Jab doosra switch ka state change ho, toh is function ko call kiya jata hai.
+// setState(() { // 'setState' method ke zariye UI ko update karte hain.
+// switchStates2[reversedIndex] = value; // Doosre switch ka state 'switchStates2' list mein updated kiya gaya hai.
+//
+// // "Off Notify" logic for switch 2
+// if (switchStates2[reversedIndex]) { // Agar switch 2 ON ho
+// if (currentLevel == (reversedIndex + 1) && !soundPlayed[reversedIndex]) { // Agar current water level match kare aur sound nahi chalaya gaya ho
+// _audioPlayerManager.playBeepSound(_selectedBeepSound!); // Sound play kiya jata hai.
+// soundPlayed[reversedIndex] = true; // Sound ko play hone ka flag true kiya gaya.
+// } else if (currentLevel != (reversedIndex + 1)) { // Agar level match nahi karta
+// soundPlayed[reversedIndex] = false; // Sound flag ko reset kar diya gaya hai.
+// }
+// }
+//
+// // Handle "Off Notify" (when switch 2 is turned off)
+// if (!switchStates2[reversedIndex] && hasSoundPlayedBefore[reversedIndex]) { // Agar switch 2 OFF ho aur pehle sound play ho chuka ho
+// soundPlayed[reversedIndex] = false; // Sound flag ko reset kar diya gaya hai.
+// }
+// });
+// },
+// )
