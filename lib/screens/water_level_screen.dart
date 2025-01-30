@@ -4738,99 +4738,99 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
               //     index: reversedIndex,
               //     currentLevel: currentLevel,
               //     onLEDGlow: (bool isOn) {
-                    // "On Notify" Logic // recent
-                    // if (switchStates1[reversedIndex] &&
-                    //     isOn &&
-                    //     !soundPlayed[reversedIndex] &&
-                    //     !hasSoundPlayedBefore[reversedIndex] &&
-                    //     !levelChangedDown) {
-                    //   // Play the beep sound when the corresponding LED glows and "On Notify" switch is on
-                    //   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                    //   soundPlayed[reversedIndex] = true; // Mark sound as played
-                    //   hasSoundPlayedBefore[reversedIndex] =
-                    //   true; // Mark that the sound has been played before
-                    // }
-                    // // Handle sound when the level is increased dynamically
-                    // if (wasLevelIncreased &&
-                    //     switchStates1[reversedIndex] &&
-                    //     isOn &&
-                    //     !soundPlayed[reversedIndex]) {
-                    //   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                    //   soundPlayed[reversedIndex] = true; // Mark sound as played
-                    //   hasSoundPlayedBefore[reversedIndex] =
-                    //   true; // Mark that the sound has been played before
-                    // }
-                    // "Off Notify" Logic
-                    //   if (switchStates2[reversedIndex] &&
-                    //       !isOn &&
-                    //       !soundPlayed[reversedIndex] &&
-                    //       hasSoundPlayedBefore[reversedIndex] &&
-                    //       levelChangedDown) {
-                    //     // Play the beep sound when the corresponding LED turns off and "Off Notify" switch is on
-                    //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                    //     soundPlayed[reversedIndex] = true; // Mark sound as played
-                    //   }
-                    //
-                    //   // Reset sound flags when LED state changes
-                    //   if (isOn) {
-                    //     soundPlayed[reversedIndex] = false; // Allow sound to play again
-                    //   }
-                    // },
-                    //switch 2 for on notify
-                  //   if (switchStates2[reversedIndex] //Agar On Notify switch
-                  //   // ON hai (iska mtlb hai user ne notify karne ke liye
-                  //   // switch ON kar rakha hai).
-                  //       &&
-                  //       isOn //Agar LED glow ho raha hai (iska mtlb hai
-                  //       // current level match kar raha hai aur uska indicator
-                  //       // light glow kar raha hai).
-                  //       &&
-                  //       !soundPlayed[reversedIndex]//Agar us particular level
-                  //       // ke liye sound abhi tak nahi baj chuka.
-                  //       &&
-                  //       !hasSoundPlayedBefore[reversedIndex] //Agar sound pehle
-                  //       // kabhi bhi nahi baj chuka us level ke liye
-                  //       // (yeh ensure karta hai ke har level ka sound ek baar
-                  //       // bajega).
-                  //       &&
-                  //       !levelChangedDown) //Agar level decrease nahi ho raha
-                  //     // (yeh ensure karta hai ke sirf level increase hone par
-                  //     // hi sound bajegi).
-                  //   {
-                  //     // Play the beep sound when the corresponding LED glows and "On Notify" switch is on
-                  //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                  //     soundPlayed[reversedIndex] = true; // soundPlayed flag ko
-                  //     // true set kar diya jata hai.//Yeh ensure karta hai ke
-                  //     // dobara sound nahi bajegi jab tak koi significant event
-                  //     // (e.g., level change) na ho.
-                  //     //Mark sound as played
-                  //     hasSoundPlayedBefore[reversedIndex] =
-                  //         true; //hasSoundPlayedBefore flag true kar diya jata hai.
-                  //     //Iska matlab hai ke sound is level ke liye pehle baj
-                  //     //chuka hai.
-                  //     //Iska purpose hai future notifications ko track karna aur
-                  //     // avoid karna ke unnecessary sounds bajti rahen.
-                  //     // Mark that the sound has been played before
-                  //   }
-                  //   // Handle sound when the level is increased dynamically
-                  //   //Agar level dynamically increase hota hai (wasLevelIncreased == true),
-                  //   // aur "On Notify" on hai (switchStates2[reversedIndex] == true),
-                  //   // aur sound pehle nahi baj chuka (!soundPlayed[reversedIndex]),
-                  //   // toh sound play karega.
-                  //   if (wasLevelIncreased &&
-                  //       switchStates2[reversedIndex] &&
-                  //       isOn &&
-                  //       !soundPlayed[reversedIndex]) {
-                  //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                  //     soundPlayed[reversedIndex] = true; // Mark sound as played
-                  //     hasSoundPlayedBefore[reversedIndex] =
-                  //         true; // Mark that the sound has been played before
-                  //     // Sound ke baad flags update karega (soundPlayed aur
-                  //     // hasSoundPlayedBefore).
-                  // }
-                  // //   Result: Sound zaroor play karega jab level increase
-                  //   //   hoga aur matching level par "On Notify" on hai.
-                  // }),
+              // "On Notify" Logic // recent
+              // if (switchStates1[reversedIndex] &&
+              //     isOn &&
+              //     !soundPlayed[reversedIndex] &&
+              //     !hasSoundPlayedBefore[reversedIndex] &&
+              //     !levelChangedDown) {
+              //   // Play the beep sound when the corresponding LED glows and "On Notify" switch is on
+              //   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+              //   soundPlayed[reversedIndex] = true; // Mark sound as played
+              //   hasSoundPlayedBefore[reversedIndex] =
+              //   true; // Mark that the sound has been played before
+              // }
+              // // Handle sound when the level is increased dynamically
+              // if (wasLevelIncreased &&
+              //     switchStates1[reversedIndex] &&
+              //     isOn &&
+              //     !soundPlayed[reversedIndex]) {
+              //   _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+              //   soundPlayed[reversedIndex] = true; // Mark sound as played
+              //   hasSoundPlayedBefore[reversedIndex] =
+              //   true; // Mark that the sound has been played before
+              // }
+              // "Off Notify" Logic
+              //   if (switchStates2[reversedIndex] &&
+              //       !isOn &&
+              //       !soundPlayed[reversedIndex] &&
+              //       hasSoundPlayedBefore[reversedIndex] &&
+              //       levelChangedDown) {
+              //     // Play the beep sound when the corresponding LED turns off and "Off Notify" switch is on
+              //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+              //     soundPlayed[reversedIndex] = true; // Mark sound as played
+              //   }
+              //
+              //   // Reset sound flags when LED state changes
+              //   if (isOn) {
+              //     soundPlayed[reversedIndex] = false; // Allow sound to play again
+              //   }
+              // },
+              //switch 2 for on notify
+              //   if (switchStates2[reversedIndex] //Agar On Notify switch
+              //   // ON hai (iska mtlb hai user ne notify karne ke liye
+              //   // switch ON kar rakha hai).
+              //       &&
+              //       isOn //Agar LED glow ho raha hai (iska mtlb hai
+              //       // current level match kar raha hai aur uska indicator
+              //       // light glow kar raha hai).
+              //       &&
+              //       !soundPlayed[reversedIndex]//Agar us particular level
+              //       // ke liye sound abhi tak nahi baj chuka.
+              //       &&
+              //       !hasSoundPlayedBefore[reversedIndex] //Agar sound pehle
+              //       // kabhi bhi nahi baj chuka us level ke liye
+              //       // (yeh ensure karta hai ke har level ka sound ek baar
+              //       // bajega).
+              //       &&
+              //       !levelChangedDown) //Agar level decrease nahi ho raha
+              //     // (yeh ensure karta hai ke sirf level increase hone par
+              //     // hi sound bajegi).
+              //   {
+              //     // Play the beep sound when the corresponding LED glows and "On Notify" switch is on
+              //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+              //     soundPlayed[reversedIndex] = true; // soundPlayed flag ko
+              //     // true set kar diya jata hai.//Yeh ensure karta hai ke
+              //     // dobara sound nahi bajegi jab tak koi significant event
+              //     // (e.g., level change) na ho.
+              //     //Mark sound as played
+              //     hasSoundPlayedBefore[reversedIndex] =
+              //         true; //hasSoundPlayedBefore flag true kar diya jata hai.
+              //     //Iska matlab hai ke sound is level ke liye pehle baj
+              //     //chuka hai.
+              //     //Iska purpose hai future notifications ko track karna aur
+              //     // avoid karna ke unnecessary sounds bajti rahen.
+              //     // Mark that the sound has been played before
+              //   }
+              //   // Handle sound when the level is increased dynamically
+              //   //Agar level dynamically increase hota hai (wasLevelIncreased == true),
+              //   // aur "On Notify" on hai (switchStates2[reversedIndex] == true),
+              //   // aur sound pehle nahi baj chuka (!soundPlayed[reversedIndex]),
+              //   // toh sound play karega.
+              //   if (wasLevelIncreased &&
+              //       switchStates2[reversedIndex] &&
+              //       isOn &&
+              //       !soundPlayed[reversedIndex]) {
+              //     _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+              //     soundPlayed[reversedIndex] = true; // Mark sound as played
+              //     hasSoundPlayedBefore[reversedIndex] =
+              //         true; // Mark that the sound has been played before
+              //     // Sound ke baad flags update karega (soundPlayed aur
+              //     // hasSoundPlayedBefore).
+              // }
+              // //   Result: Sound zaroor play karega jab level increase
+              //   //   hoga aur matching level par "On Notify" on hai.
+              // }),
 
               //switch 2 decreasing level off notify 1.0
               // WaterLevelIndicator(
@@ -4872,7 +4872,62 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
               // ),
 
               //switch 2 decreasing level off notify 2.0 (working)
+//waterlevel only for switch 2 , next is to make for switch 1 as well...7:35pm 1/28/2025
+//               WaterLevelIndicator(
+//                   index: reversedIndex,
+//                   // `reversedIndex` current water level ke liye index ko represent karta hai
+//                   currentLevel: currentLevel,
+//                   // `currentLevel` current water level pass karta hai jo is waqt tank ke andar hai
+//
+//                   onLEDGlow: (bool isOn) {
+//                     // Jab LED glow karega (on ya off status isOn variable ke zarye batata hai)
+//
+//
+//                     if (switchStates2[reversedIndex] // Agar "On Notify" switch ON hai
+//                         &&
+//                         !isOn // Agar LED /off//glow ho raha hai (matlab current level match kar raha hai)
+//                         &&
+//                         !soundPlayed[reversedIndex] // Agar sound abhi tak baj chuki nahi hai is level ke liye
+//                         &&
+//                         !hasSoundPlayedBefore[reversedIndex] // Agar sound pehle kabhi nahi baj chuki
+//                         &&
+//                         levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par notification bajni chahiye)
+//                         {
+//                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                       // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match kar raha hai
+//
+//                       soundPlayed[reversedIndex] = true;
+//                       // Is flag ko true set kiya gaya taake dobara unnecessarily sound na baje
+//
+//                       hasSoundPlayedBefore[reversedIndex] = true;
+//                       // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh future mein unnecessary sounds ko rokta hai
+//                     }
+//
+//                     if (!wasLevelIncreased
+//                         // Agar pani ka level //kam//badh raha hai
+//                         &&
+//                         switchStates2[reversedIndex]
+//                         // Aur "On Notify" switch ON hai
+//                         &&
+//                         !isOn
+//                         // Aur LED //off//glow kar raha hai
+//                         &&
+//                         !soundPlayed[reversedIndex]) {
+//                       // Aur is level ke liye abhi tak sound baj chuki nahi hai
+//
+//                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+//                       // Notify karte hue sound play karna
+//
+//                       soundPlayed[reversedIndex] = true;
+//                       // Flag ko true karna ke sound baj chuki hai aur repeat nahi hogi unnecessarily
+//
+//                       hasSoundPlayedBefore[reversedIndex] = true;
+//                       // Yeh mark karta hai ke sound is level ke liye pehle hi baj chuki hai
+//                     }
+//                   }
+//               ),
 
+//merging switch 1 on notify and switch 2 off notify 7:38pm 1/28/2025 (working)
               WaterLevelIndicator(
                   index: reversedIndex,
                   // `reversedIndex` current water level ke liye index ko represent karta hai
@@ -4881,17 +4936,66 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
 
                   onLEDGlow: (bool isOn) {
                     // Jab LED glow karega (on ya off status isOn variable ke zarye batata hai)
+                    //switch 1
+                    if (switchStates1[
+                            reversedIndex] // Agar "On Notify" switch ON hai
+                        &&
+                        isOn // Agar LED /off//glow ho raha hai (matlab current level match kar raha hai)
+                        &&
+                        !soundPlayed[
+                            reversedIndex] // Agar sound abhi tak baj chuki nahi hai is level ke liye
+                        &&
+                        !hasSoundPlayedBefore[
+                            reversedIndex] // Agar sound pehle kabhi nahi baj chuki
+                        &&
+                        !levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par notification bajni chahiye)
+                    {
+                      _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                      // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match kar raha hai
 
-                    if (switchStates2[reversedIndex] // Agar "On Notify" switch ON hai
+                      soundPlayed[reversedIndex] = true;
+                      // Is flag ko true set kiya gaya taake dobara unnecessarily sound na baje
+
+                      hasSoundPlayedBefore[reversedIndex] = true;
+                      // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh future mein unnecessary sounds ko rokta hai
+                    }
+
+                    if (wasLevelIncreased
+                        // Agar pani ka level //kam//badh raha hai
+                        &&
+                        switchStates1[reversedIndex]
+                        // Aur "On Notify" switch ON hai
+                        &&
+                        isOn
+                        // Aur LED //off//glow kar raha hai
+                        &&
+                        !soundPlayed[reversedIndex]) {
+                      // Aur is level ke liye abhi tak sound baj chuki nahi hai
+
+                      _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                      // Notify karte hue sound play karna
+
+                      soundPlayed[reversedIndex] = true;
+                      // Flag ko true karna ke sound baj chuki hai aur repeat nahi hogi unnecessarily
+
+                      hasSoundPlayedBefore[reversedIndex] = true;
+                      // Yeh mark karta hai ke sound is level ke liye pehle hi baj chuki hai
+                    }
+
+//switch 2
+                    if (switchStates2[
+                            reversedIndex] // Agar "On Notify" switch ON hai
                         &&
                         !isOn // Agar LED /off//glow ho raha hai (matlab current level match kar raha hai)
                         &&
-                        !soundPlayed[reversedIndex] // Agar sound abhi tak baj chuki nahi hai is level ke liye
+                        !soundPlayed[
+                            reversedIndex] // Agar sound abhi tak baj chuki nahi hai is level ke liye
                         &&
-                        !hasSoundPlayedBefore[reversedIndex] // Agar sound pehle kabhi nahi baj chuki
+                        !hasSoundPlayedBefore[
+                            reversedIndex] // Agar sound pehle kabhi nahi baj chuki
                         &&
                         levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par notification bajni chahiye)
-                        {
+                    {
                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
                       // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match kar raha hai
 
@@ -4923,10 +5027,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                       hasSoundPlayedBefore[reversedIndex] = true;
                       // Yeh mark karta hai ke sound is level ke liye pehle hi baj chuki hai
                     }
-                  }
-              ),
-
-
+                  }),
 
               SizedBox(width: 20),
               //previous
@@ -5084,21 +5185,22 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                   setState(() {
                     switchStates1[reversedIndex] = value;
                     // Check "On Notify" logic for switch 1
+                    //updated for switch 1 on notify 7:43pm 1/28/2025
+
+                    if (switchStates1[reversedIndex]) {
+                      // Sound play every time level matches and sound hasn't played before
+                      if (currentLevel == (reversedIndex + 1)) {
+                        _audioPlayerManager.playBeepSound(_selectedBeepSound!);
+                        soundPlayed[reversedIndex] =
+                            true; // Mark sound as played
+                      }
+                    }
+                    // Reset sound flag when the level changes (allows sound to play again when the level changes)
+                    if (currentLevel != (reversedIndex + 1)) {
+                      soundPlayed[reversedIndex] = false;
+                    }
                   });
                 },
-                //     if (switchStates1[reversedIndex]) {
-                //       // Sound play every time level matches and sound hasn't played before
-                //       if (currentLevel == (reversedIndex + 1)) {
-                //         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                //         soundPlayed[reversedIndex] = true; // Mark sound as played
-                //       }
-                //     }
-                //     // Reset sound flag when the level changes (allows sound to play again when the level changes)
-                //     if (currentLevel != (reversedIndex + 1)) {
-                //       soundPlayed[reversedIndex] = false;
-                //     }
-                //   });
-                // },
 
                 //
                 // onSwitch2Changed: (value) {
@@ -5107,7 +5209,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                 //         value; // Switch ka state update ho raha hai
                 //   });
                 // }
-//recent for switch 2 on notify logic
+//recent for switch 2 on notify logic// now for off notify 7:38pm 1/28/2025
                 onSwitch2Changed: (value) {
                   // Jab doosra switch toggle karega (on/off), toh yeh function chalega.
                   setState(() {
@@ -5125,7 +5227,7 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                         _audioPlayerManager.playBeepSound(_selectedBeepSound!);
                         soundPlayed[reversedIndex] =
                             true; // Mark sound as played
-                      // Result: Sound tabhi bajayega jab level matching ho aur switch on ho,
+                        // Result: Sound tabhi bajayega jab level matching ho aur switch on ho,
                         // lekin level dynamically increase hone ka special handling nahi karega.
                       }
                     }

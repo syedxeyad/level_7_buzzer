@@ -516,6 +516,116 @@ class SwitchWidget extends StatelessWidget {
   }
 }
 
+// complete switch functionality and ui 1/29/2025 10:43 am
+
+// import 'package:flutter/material.dart';
+//
+// class SwitchWidget extends StatefulWidget {
+//   final int currentLevel;
+//   final int index;
+//   final Function(String) playBeepSound;
+//   final String selectedBeepSound;
+//   final bool wasLevelIncreased;
+//   final bool levelChangedDown;
+//   final bool switchState1;
+//   final bool switchState2;
+//   final ValueChanged<bool> onSwitch1Changed;
+//   final ValueChanged<bool> onSwitch2Changed;
+//
+//   SwitchWidget({
+//     required this.currentLevel,
+//     required this.index,
+//     required this.playBeepSound,
+//     required this.selectedBeepSound,
+//     required this.wasLevelIncreased,
+//     required this.levelChangedDown,
+//     required this.switchState1,
+//     required this.switchState2,
+//     required this.onSwitch1Changed,
+//     required this.onSwitch2Changed,
+//   });
+//
+//   @override
+//   _SwitchWidgetState createState() => _SwitchWidgetState();
+// }
+//
+// class _SwitchWidgetState extends State<SwitchWidget> {
+//   bool hasSoundPlayedBefore = false;
+//   bool soundPlayed = false;
+//
+//   void checkAndPlaySound() {
+//     if (widget.switchState1 && widget.currentLevel == (widget.index + 1) &&
+//         !soundPlayed && !hasSoundPlayedBefore && !widget.levelChangedDown) {
+//       widget.playBeepSound(widget.selectedBeepSound);
+//       soundPlayed = true;
+//       hasSoundPlayedBefore = true;
+//     }
+//
+//     if (widget.wasLevelIncreased && widget.switchState1 && widget.currentLevel == (widget.index + 1) && !soundPlayed) {
+//       widget.playBeepSound(widget.selectedBeepSound);
+//       soundPlayed = true;
+//       hasSoundPlayedBefore = true;
+//     }
+//
+//     if (widget.switchState2 && widget.currentLevel != (widget.index + 1) &&
+//         !soundPlayed && !hasSoundPlayedBefore && widget.levelChangedDown) {
+//       widget.playBeepSound(widget.selectedBeepSound);
+//       soundPlayed = true;
+//       hasSoundPlayedBefore = true;
+//     }
+//
+//     if (!widget.wasLevelIncreased && widget.switchState2 && widget.currentLevel != (widget.index + 1) && !soundPlayed) {
+//       widget.playBeepSound(widget.selectedBeepSound);
+//       soundPlayed = true;
+//       hasSoundPlayedBefore = true;
+//     }
+//   }
+//
+//   @override
+//   void didUpdateWidget(SwitchWidget oldWidget) {
+//     super.didUpdateWidget(oldWidget);
+//     if (widget.currentLevel != (widget.index + 1)) {
+//       soundPlayed = false;
+//     }
+//     checkAndPlaySound();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         Switch(
+//           value: widget.switchState1,
+//           onChanged: (value) {
+//             widget.onSwitch1Changed(value);
+//             setState(() {
+//               soundPlayed = false;
+//               checkAndPlaySound();
+//             });
+//           },
+//           activeColor: Colors.green,
+//           inactiveThumbColor: Colors.red,
+//         ),
+//         SizedBox(width: 22),
+//         Switch(
+//           value: widget.switchState2,
+//           onChanged: (value) {
+//             widget.onSwitch2Changed(value);
+//             setState(() {
+//               soundPlayed = false;
+//               checkAndPlaySound();
+//             });
+//           },
+//           activeColor: Colors.green,
+//           inactiveThumbColor: Colors.red,
+//         ),
+//       ],
+//     );
+//   }
+// }
+//
+
 // // 1) switch_widget.dart >>>>
 //
 // import 'package:flutter/material.dart'; // Flutter ka material design package import kiya gaya hai.
