@@ -4297,6 +4297,7 @@ class WaterLevelScreen extends StatefulWidget {
   _WaterLevelScreenState createState() => _WaterLevelScreenState();
 }
 
+
 //previous
 
 // class _WaterLevelScreenState extends State<WaterLevelScreen> {
@@ -4619,12 +4620,16 @@ class WaterLevelScreen extends StatefulWidget {
 //   }
 // }
 
+
+
 class _WaterLevelScreenState extends State<WaterLevelScreen> {
   final double ledSize = 30.0;
   final double spacing = 20.0;
   final double rowSpacing = 15.0;
+
   List<bool> switchStates1 = List.generate(7, (index) => false); // "On Notify"
   List<bool> switchStates2 = List.generate(7, (index) => false); // "Off Notify"
+
   int previousLevel = 0; // Yeh variable aapke level ko track karega
   bool initialSwitchState = false; // Declare this here at the class level
 //  bool levelSelected = false; // Initially false, level select karte waqt true ho jayega.
@@ -4948,16 +4953,19 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                         !hasSoundPlayedBefore[
                             reversedIndex] // Agar sound pehle kabhi nahi baj chuki
                         &&
-                        !levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par notification bajni chahiye)
+                        !levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par
+                      // notification bajni chahiye)
                     {
                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                      // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match kar raha hai
+                      // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match
+                      // kar raha hai
 
                       soundPlayed[reversedIndex] = true;
                       // Is flag ko true set kiya gaya taake dobara unnecessarily sound na baje
 
                       hasSoundPlayedBefore[reversedIndex] = true;
-                      // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh future mein unnecessary sounds ko rokta hai
+                      // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh
+                      // future mein unnecessary sounds ko rokta hai
                     }
 
                     if (wasLevelIncreased
@@ -4994,16 +5002,19 @@ class _WaterLevelScreenState extends State<WaterLevelScreen> {
                         !hasSoundPlayedBefore[
                             reversedIndex] // Agar sound pehle kabhi nahi baj chuki
                         &&
-                        levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne par notification bajni chahiye)
+                        levelChangedDown) // Aur agar level decrease //nahi// ho raha (sirf level badhne
+                      // par notification bajni chahiye)
                     {
                       _audioPlayerManager.playBeepSound(_selectedBeepSound!);
-                      // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt match kar raha hai
+                      // Beep sound bajayi ja rahi hai user ko notify karne ke liye ke pani ka level is waqt
+                      // match kar raha hai
 
                       soundPlayed[reversedIndex] = true;
                       // Is flag ko true set kiya gaya taake dobara unnecessarily sound na baje
 
                       hasSoundPlayedBefore[reversedIndex] = true;
-                      // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh future mein unnecessary sounds ko rokta hai
+                      // Iska matlab hai ke iss particular level ke liye sound ab baj chuka hai aur yeh future mein
+                      // unnecessary sounds ko rokta hai
                     }
 
                     if (!wasLevelIncreased
